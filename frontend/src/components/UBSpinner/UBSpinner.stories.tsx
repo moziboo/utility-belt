@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import UBSpinner from './UBSpinner';
 
 const meta: Meta<typeof UBSpinner> = {
-  title: 'ToReview/UBSpinner',
+  title: 'UBSpinner',
   component: UBSpinner,
   parameters: {
     layout: 'centered',
@@ -10,11 +10,7 @@ const meta: Meta<typeof UBSpinner> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl'],
-    },
-    variant: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary'],
+      options: ['md', 'lg'],
     },
     speed: {
       control: 'select',
@@ -43,33 +39,8 @@ export const WithLabel: Story = {
   },
 };
 
-export const Small: Story = {
-  args: {
-    size: 'sm',
-    showLabel: true,
-    label: 'Loading...',
-  },
-};
-
 export const Large: Story = {
   args: {
-    size: 'lg',
-    showLabel: true,
-    label: 'Loading...',
-  },
-};
-
-export const ExtraLarge: Story = {
-  args: {
-    size: 'xl',
-    showLabel: true,
-    label: 'Loading application...',
-  },
-};
-
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
     size: 'lg',
     showLabel: true,
     label: 'Loading...',
@@ -92,65 +63,4 @@ export const SlowSpin: Story = {
     showLabel: true,
     label: 'Slow loading...',
   },
-};
-
-export const AllSizes: Story = {
-  render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner size="sm" showLabel label="Small" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner size="md" showLabel label="Medium" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner size="lg" showLabel label="Large" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner size="xl" showLabel label="Extra Large" />
-      </div>
-    </div>
-  ),
-};
-
-export const AllVariants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner variant="default" size="lg" showLabel label="Default" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner variant="primary" size="lg" showLabel label="Primary" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner variant="secondary" size="lg" showLabel label="Secondary" />
-      </div>
-    </div>
-  ),
-};
-
-export const AllSpeeds: Story = {
-  render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner speed="slow" size="lg" showLabel label="Slow" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner speed="normal" size="lg" showLabel label="Normal" />
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <UBSpinner speed="fast" size="lg" showLabel label="Fast" />
-      </div>
-    </div>
-  ),
-};
-
-export const InlineUsage: Story = {
-  render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <span>Please wait</span>
-      <UBSpinner size="sm" />
-      <span>while we process your request...</span>
-    </div>
-  ),
 };

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import UBSpinner from './UBSpinner';
+import { hasModuleClass } from '../../test/testUtils';
 
 describe('UBSpinner', () => {
   it('renders without crashing', () => {
@@ -9,46 +10,35 @@ describe('UBSpinner', () => {
   });
 
   it('applies correct size classes', () => {
-    const { rerender, container } = render(<UBSpinner size="sm" />);
-    expect(container.querySelector('.sm')).toBeInTheDocument();
+    const { rerender } = render(<UBSpinner size="lg" />);
+    expect(screen.getByTestId('spinner-visual')).toHaveAttribute('data-size', 'lg');
 
-    rerender(<UBSpinner size="lg" />);
-    expect(container.querySelector('.lg')).toBeInTheDocument();
-
-    rerender(<UBSpinner size="xl" />);
-    expect(container.querySelector('.xl')).toBeInTheDocument();
-  });
-
-  it('applies correct variant classes', () => {
-    const { rerender, container } = render(<UBSpinner variant="primary" />);
-    expect(container.querySelector('.primary')).toBeInTheDocument();
-
-    rerender(<UBSpinner variant="secondary" />);
-    expect(container.querySelector('.secondary')).toBeInTheDocument();
-
-    rerender(<UBSpinner variant="default" />);
-    expect(container.querySelector('.default')).toBeInTheDocument();
+    rerender(<UBSpinner size="md" />);
+    expect(screen.getByTestId('spinner-visual')).toHaveAttribute('data-size', 'md');
   });
 
   it('applies correct speed classes', () => {
-    const { rerender, container } = render(<UBSpinner speed="fast" />);
-    expect(container.querySelector('.fast')).toBeInTheDocument();
+    const { rerender } = render(<UBSpinner speed="fast" />);
+    expect(screen.getByTestId('spinner-visual')).toHaveAttribute('data-speed', 'fast');
 
     rerender(<UBSpinner speed="slow" />);
-    expect(container.querySelector('.slow')).toBeInTheDocument();
+    expect(screen.getByTestId('spinner-visual')).toHaveAttribute('data-speed', 'slow');
 
     rerender(<UBSpinner speed="normal" />);
-    expect(container.querySelector('.normal')).toBeInTheDocument();
+    expect(screen.getByTestId('spinner-visual')).toHaveAttribute('data-speed', 'normal');
   });
 
   it('shows label when showLabel is true', () => {
     render(<UBSpinner showLabel label="Custom loading text" />);
-    expect(screen.getByText('Custom loading text')).toBeInTheDocument();
+    expect(screen.getByTestId('spinner-label')).toBeInTheDocument();
+    expect(screen.getByTestId('spinner-label')).toHaveTextContent('Custom loading text');
   });
 
   it('hides label when showLabel is false', () => {
     render(<UBSpinner showLabel={false} label="Custom loading text" />);
-    expect(screen.queryByText('Custom loading text')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('spinner-label')).not.toBeInTheDocument();
+    // Screen reader text should still be present
+    expect(screen.getByLabelText('Custom loading text')).toBeInTheDocument();
   });
 
   it('always provides screen reader text', () => {
@@ -80,17 +70,19 @@ describe('UBSpinner', () => {
   });
 
   it('has aria-hidden on the visual spinner element', () => {
-    const { container } = render(<UBSpinner />);
-    const visualSpinner = container.querySelector('.spinner');
+    render(<UBSpinner />);
+    const visualSpinner = screen.getByTestId('spinner-visual');
     expect(visualSpinner).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('applies correct label size classes when showLabel is true', () => {
-    const { rerender, container } = render(<UBSpinner size="sm" showLabel />);
-    expect(container.querySelector('.smLabel')).toBeInTheDocument();
+    const { rerender } = render(<UBSpinner size="md" showLabel />);
+    const labelElement = screen.getByTestId('spinner-label');
+    expect(hasModuleClass(labelElement, 'mdLabel')).toBe(true);
 
-    rerender(<UBSpinner size="xl" showLabel />);
-    expect(container.querySelector('.xlLabel')).toBeInTheDocument();
+    rerender(<UBSpinner size="lg" showLabel />);
+    const lgLabelElement = screen.getByTestId('spinner-label');
+    expect(hasModuleClass(lgLabelElement, 'lgLabel')).toBe(true);
   });
 
   it('passes through additional props', () => {

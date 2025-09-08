@@ -2,8 +2,7 @@ import { forwardRef } from 'react';
 import styles from './UBSpinner.module.css';
 
 interface UBSpinnerProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  variant?: 'default' | 'primary' | 'secondary';
+  size?: 'md' | 'lg';
   speed?: 'slow' | 'normal' | 'fast';
   label?: string;
   showLabel?: boolean;
@@ -13,7 +12,6 @@ const UBSpinner = forwardRef<HTMLDivElement, UBSpinnerProps>(
   (
     {
       size = 'md',
-      variant = 'default',
       speed = 'normal',
       label = 'Loading...',
       showLabel = false,
@@ -31,12 +29,19 @@ const UBSpinner = forwardRef<HTMLDivElement, UBSpinnerProps>(
         {...restProps}
       >
         <div
-          className={`${styles.spinner} ${styles[size]} ${styles[variant]} ${styles[speed]}`}
+          className={`${styles.spinner} ${styles[size]} ${styles[speed]}`}
           aria-hidden="true"
+          data-testid="spinner-visual"
+          data-speed={speed}
+          data-size={size}
         >
           <div className={styles.spinnerInner}></div>
         </div>
-        {showLabel && <span className={`${styles.label} ${styles[`${size}Label`]}`}>{label}</span>}
+        {showLabel && (
+          <span className={`${styles.label} ${styles[`${size}Label`]}`} data-testid="spinner-label">
+            {label}
+          </span>
+        )}
         {/* Screen reader text */}
         <span className={styles.srOnly}>{label}</span>
       </div>

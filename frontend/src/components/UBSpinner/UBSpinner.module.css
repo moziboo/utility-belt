@@ -12,6 +12,7 @@
   display: inline-block;
   position: relative;
   overflow: hidden;
+  color: var(--color-primary);
 }
 
 /* Spinner Inner Ring */
@@ -28,41 +29,23 @@
 }
 
 /* Size Variants */
-.sm {
-  width: 16px;
-  height: 16px;
-}
 
 .md {
-  width: 24px;
-  height: 24px;
+  width: 42px;
+  height: 42px;
 }
 
-.lg {
-  width: 32px;
-  height: 32px;
-}
-
-.xl {
-  width: 48px;
-  height: 48px;
-}
-
-.xl .spinnerInner {
+.md .spinnerInner {
   border-width: 3px;
 }
 
-/* Color Variants */
-.default {
-  color: var(--color-text-secondary);
+.lg {
+  width: 52px;
+  height: 52px;
 }
 
-.primary {
-  color: var(--color-primary);
-}
-
-.secondary {
-  color: var(--color-text-secondary);
+.lg .spinnerInner {
+  border-width: 3px;
 }
 
 /* Speed Variants */
@@ -80,26 +63,18 @@
 
 /* Label Styles */
 .label {
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-base);
   text-align: center;
   margin-top: var(--spacing-xs);
 }
 
-.smLabel {
-  font-size: 12px;
-}
-
 .mdLabel {
-  font-size: var(--font-size-sm);
-}
-
-.lgLabel {
   font-size: var(--font-size-md);
 }
 
-.xlLabel {
+.lgLabel {
   font-size: var(--font-size-lg);
 }
 
